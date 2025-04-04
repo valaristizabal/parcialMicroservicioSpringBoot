@@ -7,6 +7,9 @@ import org.springframework.stereotype.Service;
 import com.example.parcial.model.Cliente;
 import com.example.parcial.repository.ClienteRepository;
 
+import org.springframework.transaction.annotation.Transactional;
+
+
 @Service
 public class ClienteService {
 
@@ -16,6 +19,7 @@ public class ClienteService {
         this.clienteRepository = clienteRepository;
     }
 
+    @Transactional
     public void guardarCliente(Cliente cliente) {
         Cliente clienteAux = clienteRepository.obtenerClienteByCedula(cliente.getCedula());
         if (clienteAux != null) {
@@ -37,10 +41,12 @@ public class ClienteService {
         return clienteRepository.obtenerClientes();
     }
 
+    @Transactional
     public void actualizarCliente(Cliente cliente) {
         clienteRepository.actualizarCliente(cliente);
     }
 
+    @Transactional
     public void eliminarCliente(Integer id) {
         clienteRepository.eliminarCliente(id);
     }

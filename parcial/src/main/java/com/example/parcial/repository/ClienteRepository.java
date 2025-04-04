@@ -5,6 +5,8 @@ import org.springframework.stereotype.Repository;
 import com.example.parcial.model.Cliente;
 
 import jakarta.persistence.*;
+import org.springframework.transaction.annotation.Transactional;
+
 
 @Repository
 public class ClienteRepository {
@@ -21,9 +23,16 @@ public class ClienteRepository {
     }
 
     public Cliente obtenerClienteByCedula(String cedula){
-        return entityManager.createQuery("SELECT c FROM Cliente c WHERE c.cedula = :cedula", Cliente.class)
-                            .setParameter("cedula", cedula)
-                            .getSingleResult();
+        List<Cliente> clientes = entityManager
+        .createQuery("SELECT c FROM Cliente c WHERE c.cedula = :cedula", Cliente.class)
+        .setParameter("cedula", cedula)
+        .getResultList();
+
+        if (clientes.isEmpty()) {
+            return null;
+        } else {
+            return clientes.get(0);
+        }
     }
 
     public List<Cliente> obtenerClientes(){
@@ -33,7 +42,7 @@ public class ClienteRepository {
     public void actualizarCliente(Cliente cliente){
         entityManager.merge(cliente);
     }
-
+    
     public void eliminarCliente(Integer id){
         Cliente cliente = obtenerClienteById(id);
         if (cliente != null) {
