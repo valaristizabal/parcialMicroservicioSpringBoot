@@ -41,7 +41,7 @@ public class ClienteService {
         if (cliente == null) {
             throw new IllegalArgumentException("El cliente con cédula: " + cedula + " NO se encuentra registrado");
         }
-        return clienteRepository.obtenerClienteByCedula(cedula);
+        return cliente;
     }
 
     public List<Cliente> obtenerClientes() {

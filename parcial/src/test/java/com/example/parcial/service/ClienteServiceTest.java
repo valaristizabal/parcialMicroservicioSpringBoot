@@ -59,7 +59,7 @@ public class ClienteServiceTest {
         verify(clienteRepository, never()).guardarCliente(cliente1);
     }
 
-    //caso #3 obtener cliente por el id
+    //caso #3 obtener cliente por el id exitoso
     @Test
     void obtenerClienteByIdTestExitoso() {
         when(clienteRepository.obtenerClienteById(1)).thenReturn(cliente1);
@@ -71,24 +71,100 @@ public class ClienteServiceTest {
         verify(clienteRepository, times(1)).obtenerClienteById(1);
     }
 
-    // void obtenerClienteByIdTestIdNoExistente(){
-    //     when(clienteRepository.obtenerClienteById(3)).thenReturn(null);
-    //     Cliente resultado = clienteService.obtenerClienteById(3);
-    // }
-
-
-    //
+    //caso #4 obtener cliente por el id no existente
     @Test
-    void obtenerClientesTest() {
-        when(clienteRepository.obtenerClientes()).thenReturn(Arrays.asList(cliente1, cliente2));
+    void obtenerClienteByIdTestIdNoExistente(){
+        when(clienteRepository.obtenerClienteById(3)).thenReturn(null);
 
-        List<Cliente> clientes = clienteService.obtenerClientes();
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            clienteService.obtenerClienteById(3);
+        });
 
-        assertNotNull(clientes);
-        assertEquals(2, clientes.size());
+        assertEquals("El cliente con id: 3 NO se encuentra registrado", exception.getMessage());
+        verify(clienteRepository, times(1)).obtenerClienteById(3);
+    }
+
+    //caso #5 obtener cliente por cedula exitoso
+    @Test
+    void obtenerClienteByCedulaTestExitoso() {
+        when(clienteRepository.obtenerClienteByCedula(cliente1.getCedula())).thenReturn(cliente1);
+
+        Cliente resultado = clienteService.obtenerClienteByCedula(cliente1.getCedula());
+
+        assertNotNull(resultado);
+        assertEquals("cliente #1", resultado.getNombre());
+        verify(clienteRepository, times(1)).obtenerClienteByCedula(cliente1.getCedula());
+    }
+
+    //caso #6 obtener cliente por cedula no existente
+    @Test
+    void obtenerClienteByCedulaTestCedulaNoExistente() {
+        when(clienteRepository.obtenerClienteByCedula(cliente1.getCedula())).thenReturn(null);
+
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            clienteService.obtenerClienteByCedula(cliente1.getCedula());
+        });
+
+        assertEquals("El cliente con cédula: " + cliente1.getCedula() + " NO se encuentra registrado", exception.getMessage());
+        verify(clienteRepository, times(1)).obtenerClienteByCedula(cliente1.getCedula());
+    }
+
+    //caso #7 obtener todos los clientes exitoso
+    @Test
+    void obtenerClientesTestExitoso() {
+        List<Cliente> clientes = Arrays.asList(cliente1, cliente2);
+        when(clienteRepository.obtenerClientes()).thenReturn(clientes);
+
+        List<Cliente> resultado = clienteService.obtenerClientes();
+
+        assertNotNull(resultado);
+        assertEquals(2, resultado.size());
         verify(clienteRepository, times(1)).obtenerClientes();
     }
     
+    //caso #8 actualizar cliente exitoso
+    @Test
+    void actualizarClienteTestExito() {
+        when(clienteRepository.obtenerClienteByCedula(cliente1.getCedula())).thenReturn(cliente1);
 
+        clienteService.actualizarCliente(cliente1);
+
+        verify(clienteRepository, times(1)).actualizarCliente(cliente1);
+    }
+    //caso #9 actualizar cliente no existente
+    @Test
+    void actualizarClienteTestClienteNoExistente() {
+        when(clienteRepository.obtenerClienteByCedula(cliente1.getCedula())).thenReturn(null);
+
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            clienteService.actualizarCliente(cliente1);
+        });
+
+        assertEquals("El cliente con cédula: " + cliente1.getCedula() + " NO se encuentra registrado, por lo que no se puede actualizar", exception.getMessage());
+        verify(clienteRepository, never()).actualizarCliente(cliente1);
+    }
+
+    //caso #10 eliminar cliente exitoso
+    @Test
+    void eliminarClienteTestExitoso() {
+        when(clienteRepository.obtenerClienteByCedula(cliente1.getCedula())).thenReturn(cliente1);
+
+        clienteService.eliminarCliente(cliente1.getCedula());
+
+        verify(clienteRepository, times(1)).eliminarCliente(cliente1.getCedula());
+    }
+
+    //caso #11 eliminar cliente no existente
+    @Test
+    void eliminarClienteTestClienteNoExistente() {
+        when(clienteRepository.obtenerClienteByCedula(cliente1.getCedula())).thenReturn(null);
+
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            clienteService.eliminarCliente(cliente1.getCedula());
+        });
+
+        assertEquals("El cliente con cédula: " + cliente1.getCedula() + " NO se encuentra registrado, por lo que no se puede eliminar", exception.getMessage());
+        verify(clienteRepository, never()).eliminarCliente(cliente1.getCedula());
+    }
 
 }
