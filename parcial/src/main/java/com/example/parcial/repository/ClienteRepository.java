@@ -5,7 +5,6 @@ import org.springframework.stereotype.Repository;
 import com.example.parcial.model.Cliente;
 
 import jakarta.persistence.*;
-import org.springframework.transaction.annotation.Transactional;
 
 
 @Repository
@@ -43,8 +42,8 @@ public class ClienteRepository {
         entityManager.merge(cliente);
     }
     
-    public void eliminarCliente(Integer id){
-        Cliente cliente = obtenerClienteById(id);
+    public void eliminarCliente(String cedula){
+        Cliente cliente = obtenerClienteByCedula(cedula);
         if (cliente != null) {
             entityManager.remove(cliente);
         }
