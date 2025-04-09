@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  mariadb:
+    image: mariadb:10.5
+    container_name: mariadb
+    restart: always
+    environment:
+      MARIADB_ROOT_PASSWORD: root
+      MARIADB_DATABASE: microservicio_db
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+
+  microservicio:
+    build: .
+    container_name: microservicio
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mariadb
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+
+volumes:
+  mariadb_data:
