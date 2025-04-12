@@ -17,7 +17,7 @@ services:
 
   parcial:
     build:
-      context: ./parcial
+      context: .
     container_name: parcial-app
     ports:
       - "8080:8080"
