@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: actualizar-cliente-service
+spec:
+  selector:
+    app: actualizar-cliente
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080

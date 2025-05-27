@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: guardar-cliente-deploy
+  name: actualizar-cliente-deploy
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: guardar-cliente
+      app: actualizar-cliente
   template:
     metadata:
       labels:
-        app: guardar-cliente
+        app: actualizar-cliente
     spec:
       containers:
         - name: parcial

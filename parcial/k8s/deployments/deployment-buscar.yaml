@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: guardar-cliente-deploy
+  name: obtener-id-deploy
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: guardar-cliente
+      app: obtener-id
   template:
     metadata:
       labels:
-        app: guardar-cliente
+        app: obtener-id
     spec:
       containers:
         - name: parcial

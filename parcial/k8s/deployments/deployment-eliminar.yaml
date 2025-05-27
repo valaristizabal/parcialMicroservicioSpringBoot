@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: guardar-cliente-deploy
+  name: eliminar-cliente-deploy
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: guardar-cliente
+      app: eliminar-cliente
   template:
     metadata:
       labels:
-        app: guardar-cliente
+        app: eliminar-cliente
     spec:
       containers:
         - name: parcial
