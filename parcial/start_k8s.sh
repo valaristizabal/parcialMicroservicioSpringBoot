@@ -4,6 +4,9 @@
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 K8S_DIR="$SCRIPT_DIR/k8s"
 
+echo "📁 Asegurando namespace 'dev'..."
+kubectl apply -f "$K8S_DIR/namespaces/namespace-dev.yaml"
+
 echo "🔁 Aplicando PersistentVolume..."
 kubectl apply -f "$K8S_DIR/persistentVolumes/pv.yaml"
 
@@ -25,4 +28,10 @@ kubectl apply -f "$K8S_DIR/services/service-editar.yaml"
 kubectl apply -f "$K8S_DIR/services/service-eliminar.yaml"
 kubectl apply -f "$K8S_DIR/services/service-buscar.yaml"
 
-echo "✅ Todos los recursos han sido aplicados."
+echo "🚀 Desplegando pod individual..."
+kubectl apply -f "$K8S_DIR/pods/pod-01.yaml"
+
+echo "🔁 Aplicando ReplicaSet nginx en namespace 'dev'..."
+kubectl apply -f "$K8S_DIR/replicasets/replicaset-demo.yaml" -n dev
+
+echo "✅ Todos los recursos han sido aplicados correctamente."

@@ -2,9 +2,10 @@ apiVersion: apps/v1
 kind: ReplicaSet
 metadata:
   name: nginx-rs
-  namespace: dev
+  labels:
+    app: nginx
 spec:
-  replicas: 2
+  replicas: 4
   selector:
     matchLabels:
       app: nginx
