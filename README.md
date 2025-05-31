@@ -168,7 +168,8 @@ curl -X POST http://localhost:8080/api/clientes \
 
 ## 📸 Capturas y evidencia (por agregar)
 
-Agrega aquí tus imágenes de:
+<img width="694" alt="image" src="https://github.com/user-attachments/assets/758f4523-8c53-42ba-88ac-d70f55d598c5" />
+
 
 - `kubectl get pods`
 - `kubectl get svc`
