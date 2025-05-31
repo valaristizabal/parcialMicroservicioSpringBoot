@@ -1,0 +1,39 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: microservicios-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+spec:
+  rules:
+    - host: microservicios.local
+      http:
+        paths:
+          - path: /guardar/?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: guardar-cliente-service
+                port:
+                  number: 8080
+          - path: /editar/?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: actualizar-cliente-service
+                port:
+                  number: 8080
+          - path: /eliminar/?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: eliminar-cliente-service
+                port:
+                  number: 8080
+          - path: /buscar/?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: obtener-cliente-id-service
+                port:
+                  number: 8080

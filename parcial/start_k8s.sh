@@ -23,6 +23,7 @@ kubectl apply -f "$K8S_DIR/deployments/deployment-editar.yaml"
 kubectl apply -f "$K8S_DIR/deployments/deployment-eliminar.yaml"
 kubectl apply -f "$K8S_DIR/deployments/deployment-buscar.yaml"
 
+echo "🔁 Aplicando Services de microservicios..."
 kubectl apply -f "$K8S_DIR/services/service-guardar.yaml"
 kubectl apply -f "$K8S_DIR/services/service-editar.yaml"
 kubectl apply -f "$K8S_DIR/services/service-eliminar.yaml"
@@ -33,5 +34,8 @@ kubectl apply -f "$K8S_DIR/pods/pod-01.yaml"
 
 echo "🔁 Aplicando ReplicaSet nginx en namespace 'dev'..."
 kubectl apply -f "$K8S_DIR/replicasets/replicaset-demo.yaml" -n dev
+
+echo "🌐 Aplicando Ingress..."
+kubectl apply -f "$K8S_DIR/ingress/ingress-app.yaml"
 
 echo "✅ Todos los recursos han sido aplicados correctamente."
