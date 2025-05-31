@@ -17,3 +17,10 @@ spec:
           image: duvcy/parcial-microservicio:latest
           ports:
             - containerPort: 8080
+          env:
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:mariadb://mariadb-service.default.svc.cluster.local:3306/parcial
+            - name: SPRING_DATASOURCE_USERNAME
+              value: root
+            - name: SPRING_DATASOURCE_PASSWORD
+              value: rootpass

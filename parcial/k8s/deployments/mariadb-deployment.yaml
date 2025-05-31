@@ -17,9 +17,10 @@ spec:
           image: mariadb:10.5
           env:
             - name: MYSQL_ROOT_PASSWORD
-              value: rootpass
+              value: root
             - name: MYSQL_DATABASE
               value: parcial
+
           ports:
             - containerPort: 3306
           volumeMounts:
