@@ -176,6 +176,11 @@ Agrega aquí tus imágenes de:
 - Base de datos consultada desde un cliente SQL
 
 ---
+## ver lista de cluster
+kubectl config get-contexts    
+
+## cambiar contexto de cluster 
+kubectl config use-context <nombre-del-contexto>
 
 ## 👨‍💻 Autores
 
